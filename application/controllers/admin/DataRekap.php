@@ -72,9 +72,6 @@ class DataRekap extends CI_Controller
       ->where('a.id_mapel', $mapel)->get()->row_array();
 
 
-    //$querydata = $this->db->query('SELECT siswa.nama,  siswa.nis, absensi.*  FROM siswa LEFT JOIN absensi on absensi.id_siswa = siswa.id_siswa WHERE absensi.tanggal = "'.$tanggal.'" AND absensi.bulan = "'.$bulan.'" AND absensi.tahun = "'.$tahun.'" AND siswa.id_kelas= "'.$id_kelas.'"')->result();
-    //$querydata = $this->db->join('siswa', 'siswa.id_siswa = absensi.id_siswa')->like('absensi.tanggal', htmlspecialchars($this->input->post('tgl', true)))->like('absensi.bulan', htmlspecialchars($this->input->post('bulan', true)))->like('absensi.tahun', htmlspecialchars($this->input->post('tahun', true)))->get_where('absensi', ['absensi.id_kelas' => htmlspecialchars($this->input->post('kelas', true))])->result();
-
     $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
 
