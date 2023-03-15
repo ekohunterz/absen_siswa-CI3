@@ -43,6 +43,7 @@ class User_m extends CI_Model
 
   public function dataTahun()
   {
+    $this->db->group_by('tahun_ajaran');
     return $this->db->get('tahun_akademik')->result();
   }
 }

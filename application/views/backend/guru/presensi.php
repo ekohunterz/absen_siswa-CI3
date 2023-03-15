@@ -1,9 +1,16 @@
+<style>
+  div.dataTables_wrapper {
+    max-width: 98%;
+    margin: 0;
+}
+</style>
 <div class="row">
   <!-- Layout Demo -->
+  
   <div class="col-md-12">
     <div class="card mb-4">
       <h5 class="card-header">Absen</h5>
-      <center>
+      <center>      
         <form method="post">
           <div class="card-body">
             <div class="mb-3">
@@ -33,18 +40,14 @@
           </div>
         </form>
       </center>
-      <div class="p-3">
-        <?php if ($this->session->flashdata('success')) : ?>
-          <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('success'); ?>
-          </div>
-        <?php endif; ?>
-      </div>
+      <div hidden id="alert" class="px-4"><div class="alert alert-success" role="alert">
+        Absen berhasil disimpan!
+      </div></div>
       <h5 class="card-header">List Siswa</h5>
       <div class="card-body">
         <div class="mb-3">
           <div class="table-responsive">
-            <form method="post" id="absen">
+            <form method="post"  id="absen">
               <table class="table table-hover table-striped" id="list-absen">
                 <thead>
                   <th>No</th>
@@ -57,12 +60,12 @@
                     <?= $no = 1; ?>
                   </small>
                   <?php foreach ($siswa as $sis) : ?>
-                    <input type="hidden" name="id_siswa[]" value="<?= $sis->id_siswa; ?>">
-                    <input type="hidden" name="id_kelas" value="<?= $sis->id_kelas; ?>">
-                    <input type="hidden" name="semester" value="<?= $sis->semester; ?>">
-                    <input type="hidden" name="tahun_ajaran" value="<?= $sis->tahun_ajaran; ?>">
-                    <input type="hidden" name="id_mapel" value="<?= $sis->id_mapel; ?>">
-                    <input type="hidden" name="kode_absen[]" value="absen_<?= $sis->id_siswa . date('Ymd') . $id_jadwal; ?>">
+                    <input type="text" hidden name="id_siswa[]" value="<?= $sis->id_siswa; ?>">
+                    <input type="text" hidden name="id_kelas" value="<?= $sis->id_kelas; ?>">
+                    <input type="text" hidden name="semester" value="<?= $sis->semester; ?>">
+                    <input type="text" hidden name="tahun_ajaran" value="<?= $sis->tahun_ajaran; ?>">
+                    <input type="text" hidden name="id_mapel" value="<?= $sis->id_mapel; ?>">
+                    <input type="text" hidden name="kode_absen[]" value="absen_<?= $sis->id_siswa . date('Ymd') . $id_jadwal; ?>">
                     <tr>
                       <td><?= $no++ ?></td>
                       <td><?= $sis->nama; ?></td>
@@ -89,9 +92,8 @@
               <?php } else { ?>
                 <button id="verif" class="btn btn-primary">Absen</button>
               <?php } ?>
+              
             </div>
-
-
           </div>
           </form>
         </div>
@@ -117,11 +119,11 @@
           console.log(data);
           if (data.status == true) {
             swal.fire({
-              title: 'Verifikasi Absen',
-              text: 'Absensi berhasil diverifikasi',
+              title: 'Absen',
+              text: 'Absensi berhasil disimpan',
               icon: 'success'
             }).then(function() {
-              //window.location = "<?= site_url('guru/Absensi'); ?>";
+              $('#alert').removeAttr('hidden');
             });
           } else {
             swal.fire({
@@ -132,8 +134,8 @@
             })
           }
         }
-
       })
+      return false;
     });
   });
 </script>
@@ -152,11 +154,11 @@
   hari.textContent = thisDay + ', ' + day + ' ' + months[month] + ' ' + year;
 </script>
 <script>
-  $(document).ready(function() {
-    $('#list-absen').DataTable({
-      scrollX: false,
-      scrollCollapse: true,
-      paging: false,
-    });
-  });
+ $(document).ready(function() {
+     $('#list-absen').DataTable({
+         scrollX: false,
+         scrollCollapse: false,
+         paging: false,
+     });
+ });
 </script>

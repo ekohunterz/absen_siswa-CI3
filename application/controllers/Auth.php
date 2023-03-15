@@ -23,7 +23,7 @@ class Auth extends CI_Controller
     $this->form_validation->set_rules('password', 'Password', 'required|trim');
     if ($this->form_validation->run() == FALSE) {
       $this->load->view('backend/auth/auth_login', [
-        'title' => 'Absensi SMK Negeri 4 Kota Serang'
+        'title' => 'Absensi SMK'
       ], FALSE);
     } else {
       $this->login();

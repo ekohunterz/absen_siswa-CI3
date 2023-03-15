@@ -86,7 +86,6 @@
                     <?php foreach ($siswa as $sis) : ?>
                       <input type="hidden" name="id_siswa[]" value="<?= $sis->id_siswa; ?>">
                       <input type="hidden" name="id_kelas" value="<?= $id_kelas; ?>">
-                      <input type="hidden" name="presensi_masuk[]" value="<?= $sis->presensi_masuk; ?>">
                       <input type="hidden" name="kode_absen[]" value="<?= $sis->id_siswa . date('Ymd'); ?>">
                       <tr>
                         <td><?= $no++ ?></td>

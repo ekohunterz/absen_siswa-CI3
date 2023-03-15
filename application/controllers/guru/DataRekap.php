@@ -60,15 +60,15 @@ class DataRekap extends CI_Controller
       ->where('a.id_guru', $id)
       ->group_by("s.nama")->get()->result();
 
-    $querydata1 = $this->db->select("j.nama_mapel, k.kelas")
-      ->from('absensi a')
-      ->join('kelas k', 'a.id_kelas = k.id_kelas')
-      ->join('jadwal j', 'a.id_mapel = j.id_mapel')
-      ->where('a.id_kelas', $id_kelas)
-      ->where('a.id_mapel', $mapel)->get()->row_array();
+    $querydata1 = $this->db->select("m.nama_mapel, k.kelas")
+          ->from('absensi a')
+          ->join('kelas k', 'a.id_kelas = k.id_kelas')
+          ->join('jadwal j', 'a.id_mapel = j.id_mapel')
+          ->join('mapel m', 'j.id_mapel = m.id_mapel')
+          ->where('a.id_kelas', $id_kelas)
+          ->where('a.id_mapel', $mapel)
+          ->get()->row_array();
 
-    //$querydata = $this->db->query('SELECT siswa.nama,  siswa.nis, absensi.*  FROM siswa LEFT JOIN absensi on absensi.id_siswa = siswa.id_siswa WHERE absensi.tanggal = "'.$tanggal.'" AND absensi.bulan = "'.$bulan.'" AND absensi.tahun = "'.$tahun.'" AND siswa.id_kelas= "'.$id_kelas.'"')->result();
-    //$querydata = $this->db->join('siswa', 'siswa.id_siswa = absensi.id_siswa')->like('absensi.tanggal', htmlspecialchars($this->input->post('tgl', true)))->like('absensi.bulan', htmlspecialchars($this->input->post('bulan', true)))->like('absensi.tahun', htmlspecialchars($this->input->post('tahun', true)))->get_where('absensi', ['absensi.id_kelas' => htmlspecialchars($this->input->post('kelas', true))])->result();
 
     $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();

@@ -5,7 +5,7 @@ class Guru_m extends CI_Model
 {
   public function saveAbsen($data)
   {
-    return $this->db->replace('absensi', $data);
+    $this->db->replace('absensi', $data);
   }
 
 

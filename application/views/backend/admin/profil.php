@@ -156,9 +156,10 @@
           swal.fire({
             title: 'Edit Profil',
             text: 'Profil berhasil diedit',
-            icon: 'success',
-            timer : 5000
-          });
+            icon: 'success'
+          }).then(function() {
+              location.reload();
+            });
         } else {
           swal.fire({
             title: 'Gagal',
@@ -167,8 +168,8 @@
             dangerMode: 'true'
           })
         }
-      }
-
+      } 
     })
+    return false;
   })
 </script>

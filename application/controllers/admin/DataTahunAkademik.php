@@ -52,9 +52,8 @@ class DataTahunAkademik extends CI_Controller
 
   public function saveEditTahun()
   {
-    $id = $this->session->userdata('id_user');
     $input = $this->input->post();
-    $id_ = $input['id'];
+    $id_tahun = $input['id'];
     $this->form_validation->set_rules('tahun2', 'Tahun Ajaran', 'required');
     $this->form_validation->set_rules('semester2', 'Tahun Ajaran', 'required');
     $this->form_validation->set_rules('status2', 'Tahun Ajaran', 'required');
@@ -68,7 +67,7 @@ class DataTahunAkademik extends CI_Controller
         'keterangan' => $input['keterangan2']
       ];
 
-      $this->admin_m->saveEditTahun($data, $id);
+      $this->admin_m->saveEditTahun($data, $id_tahun);
       echo json_encode(['status' => TRUE]);
     }
   }

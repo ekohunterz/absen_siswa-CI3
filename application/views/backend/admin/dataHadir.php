@@ -86,9 +86,6 @@
                     <input hidden name="id_kelas" value="<?= $id_kelas; ?>">
                     <input hidden name="kode_absen[]" value="<?= $sis->id_absen; ?>">
                     <input hidden name="time_in[]" value="<?= $sis->time_in; ?>">
-                    <input hidden name="tanggal1[]" value="<?= $sis->tanggal; ?>">
-                    <input hidden name="bulan1[]" value="<?= $sis->bulan; ?>">
-                    <input hidden name="tahun1[]" value="<?= $sis->tahun; ?>">
                     <tr>
                       <td><?= $no++ ?></td>
                       <td><?= $sis->nama; ?></td>
@@ -253,6 +250,7 @@
       }
 
     })
+    return false;
   });
 
 </script>

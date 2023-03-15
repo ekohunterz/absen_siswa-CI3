@@ -7,6 +7,7 @@ class Absensi extends CI_Controller
   {
     parent::__construct();
     $this->load->helper('url');
+    $this->load->library('form_validation');
     $bulan = array(1 => "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
     $hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
     $this->get_today_date = $hari[(int)date("w")] . ', ' . date("j ") . $bulan[(int)date('m')] . date(" Y");
@@ -69,22 +70,14 @@ class Absensi extends CI_Controller
         'tanggal_absen' => $today,
         'id_kelas' => $input['id_kelas'],
         'time_in' => strtotime(date("Y-m-d")),
-        'tanggal' => date("d"),
-        'bulan' => date("m"),
-        'tahun' => date("Y"),
         'semester' => $input['semester'],
         'tahun_ajaran' => $input['tahun_ajaran'],
         'keterangan' => $input['keterangan'][$key]
       ];
-      // $index++;
-      // $json = json_encode($data);
-      // echo $json;
-      // var_dump($data);
-
       $this->guru_m->saveAbsen($data);
-      $this->session->set_flashdata('success', 'Absensi berhasil disimpan');
-      echo json_encode(['status' => TRUE]);
+      //$this->session->set_flashdata('success', 'Absensi berhasil disimpan');    
     }
+    echo json_encode(['status' => TRUE]);
   }
 }
 

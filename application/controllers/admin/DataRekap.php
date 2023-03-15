@@ -52,20 +52,22 @@ class DataRekap extends CI_Controller
               count(case when a.keterangan = 'Izin' then 1 else null end) as tIjin,
               count(case when a.keterangan = 'Hadir' then 1 else null end) as tHadir,
               count(case when a.keterangan != 'Hadir' then 1 else null end) as total,
-              count(case when a.keterangan = 'Alpha' then 1 else null end) as tAlpha,s.nama,s.id_siswa,s.nis, j.nama_mapel")
+              count(case when a.keterangan = 'Alpha' then 1 else null end) as tAlpha,s.nama,s.id_siswa,s.nis, m.nama_mapel")
       ->from('absensi a')
       ->join('siswa s', 'a.id_siswa = s.id_siswa')
       ->join('jadwal j', 'a.id_mapel = j.id_mapel')
+      ->join('mapel m', 'a.id_mapel = m.id_mapel')
       ->like('a.semester', $this->input->post('smt'))
       ->like('a.tahun_ajaran', $this->input->post('thn'))
       ->where('a.id_kelas', $id_kelas)
       ->where('a.id_mapel', $mapel)
       ->group_by("s.nama")->get()->result();
 
-    $querydata1 = $this->db->select("j.nama_mapel, k.kelas")
+    $querydata1 = $this->db->select("m.nama_mapel, k.kelas")
       ->from('absensi a')
       ->join('kelas k', 'a.id_kelas = k.id_kelas')
       ->join('jadwal j', 'a.id_mapel = j.id_mapel')
+      ->join('mapel m', 'j.id_mapel = m.id_mapel')
       ->where('a.id_kelas', $id_kelas)
       ->where('a.id_mapel', $mapel)->get()->row_array();
 
@@ -88,7 +90,7 @@ class DataRekap extends CI_Controller
       ],
     ];
     $datamapel = $querydata1;
-    $sheet->setCellValue('A1', 'Rekap Data Absensi: SMK Negeri 4 Kota Serang');
+    $sheet->setCellValue('A1', 'Rekap Data Absensi');
     $sheet->mergeCells('A1:H2');
     $sheet->getStyle('A1')->applyFromArray($styleJudul);
     $sheet->setCellValue('A3', 'Excel was generated on ' . date("Y-m-d H:i:s") . '');

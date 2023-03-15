@@ -40,7 +40,7 @@ class Kelas_m extends CI_Model
     $this->db->select('*');
     $this->db->from('kelas k');
     $this->db->join('jadwal j', 'k.id_kelas = j.id_kelas');
-    $this->db->join('tahun_akademik t', 't.tahun_ajaran = j.tahun_ajaran');
+    $this->db->join('tahun_akademik t', 't.tahun_ajaran = j.tahun_ajaran AND t.semester = j.semester');
     $this->db->join('mapel m', 'j.id_mapel=m.id_mapel', 'left');
     $this->db->where('j.id_guru', $id);
     $this->db->where('j.hari', $hari_ini);

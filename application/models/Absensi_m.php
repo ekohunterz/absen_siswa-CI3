@@ -61,7 +61,7 @@ class Absensi_m extends CI_Model
     $this->db->select("count(case when keterangan = 'Sakit' then 1 else null end) as tSakit,
                         count(case when keterangan = 'Izin' then 1 else null end) as tIjin,
                         count(case when keterangan = 'Hadir' then 1 else null end) as tHadir,
-                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,bulan,tahun,time_in,keterangan")
+                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,time_in,keterangan")
       ->from('absensi')
       ->like('semester', htmlspecialchars($this->input->post('smt', true)))
       ->like('tahun_ajaran', htmlspecialchars($this->input->post('thn', true)))
@@ -127,7 +127,7 @@ class Absensi_m extends CI_Model
     $this->db->select("count(case when keterangan = 'Sakit' then 1 else null end) as tSakit,
                         count(case when keterangan = 'Izin' then 1 else null end) as tIjin,
                         count(case when keterangan = 'Hadir' then 1 else null end) as tHadir,
-                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,bulan,tahun,time_in,keterangan")
+                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,time_in,keterangan")
       ->from('absensi')
       ->like('semester', htmlspecialchars($this->input->post('smt', true)))
       ->like('tahun_ajaran', htmlspecialchars($this->input->post('thn', true)))
@@ -169,7 +169,7 @@ class Absensi_m extends CI_Model
     $this->db->distinct('keterangan');
     $this->db->select("count(case when keterangan = 'Hadir' then 1 else null end) as tHadir, count(case when keterangan = 'Sakit' then 1 else null end) as tSakit,
                         count(case when keterangan = 'Izin' then 1 else null end) as tIjin,
-                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,tanggal_absen,bulan,tahun");
+                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,tanggal_absen");
     $this->db->like('time_in', $tanggal);
     $this->db->where(array('id_kelas' => $id_kelas))->where(array('id_guru' => $id))->where(array('id_mapel' => $mapel));
     return $this->db->get('absensi')->result();
@@ -181,7 +181,7 @@ class Absensi_m extends CI_Model
     $this->db->distinct('keterangan');
     $this->db->select("count(case when keterangan = 'Hadir' then 1 else null end) as tHadir, count(case when keterangan = 'Sakit' then 1 else null end) as tSakit,
                         count(case when keterangan = 'Izin' then 1 else null end) as tIjin,
-                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,tanggal_absen,bulan,tahun");
+                        count(case when keterangan = 'Alpha' then 1 else null end) as tAlpha,tanggal_absen");
     $this->db->like('time_in', $tanggal);
     $this->db->where(array('id_kelas' => $id_kelas))->where(array('id_mapel' => $mapel));
     return $this->db->get('absensi')->result();

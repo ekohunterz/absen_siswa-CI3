@@ -59,8 +59,6 @@ class DataKehadiran extends CI_Controller
 
       $this->admin_m->updateAbsen($data, $kode_absen[$key]);
     }
-    //redirect($_SERVER['HTTP_REFERER']);
-    //redirect('data-hadir');
     echo json_encode(['status' => TRUE]);
   }
 
@@ -78,15 +76,13 @@ class DataKehadiran extends CI_Controller
       ->like('a.time_in', $tanggal)
       ->where('a.id_kelas', $id_kelas)->get()->result();
 
-    $querydata1 = $this->db->select("j.nama_mapel, k.kelas")
+    $querydata1 = $this->db->select("m.nama_mapel, k.kelas")
       ->from('absensi a')
       ->join('kelas k', 'a.id_kelas = k.id_kelas')
       ->join('jadwal j', 'a.id_mapel = j.id_mapel')
+      ->join('mapel m', 'j.id_mapel = m.id_mapel')
       ->where('a.id_kelas', $id_kelas)
       ->where('a.id_mapel', $mapel)->get()->row_array();
-
-    //$querydata = $this->db->query('SELECT siswa.nama,  siswa.nis, absensi.*  FROM siswa LEFT JOIN absensi on absensi.id_siswa = siswa.id_siswa WHERE absensi.bulan = "'.$bulan.'" AND absensi.tahun = "'.$tahun.'" AND siswa.id_kelas= "'.$id_kelas.'"')->result();
-    //$querydata = $this->db->join('siswa', 'siswa.id_siswa = absensi.id_siswa')->like('absensi.id_kelas', htmlspecialchars($this->input->post('kelas', true)))->like('absensi.bulan', htmlspecialchars($this->input->post('bulan', true)))->like('absensi.tahun', htmlspecialchars($this->input->post('tahun', true)))->get_where('absensi')->result();
 
     $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
@@ -134,10 +130,10 @@ class DataKehadiran extends CI_Controller
     foreach ($dataabsensi as $rowabsen) {
       $sheet->setCellValue('A' . $rowx, $no++);
       $sheet->setCellValue('B' . $rowx, $rowabsen->nama);
-      $sheet->setCellValue('C' . $rowx, $rowabsen->tanggal . '/' . $rowabsen->bulan . '/' . $rowabsen->tahun);
+      $sheet->setCellValue('C' . $rowx, $rowabsen->tanggal_absen);
       $sheet->setCellValue('D' . $rowx, $rowabsen->kelas);
-      $sheet->setCellValue('E' . $rowx, $rowabsen->presensi_masuk);
-      $sheet->setCellValue('F' . $rowx, $rowabsen->presensi_keluar);
+      $sheet->setCellValue('E' . $rowx, $rowabsen->semester);
+      $sheet->setCellValue('F' . $rowx, $rowabsen->tahun_ajaran);
       $sheet->setCellValue('G' . $rowx, $rowabsen->keterangan);
       $rowx++;
     }
