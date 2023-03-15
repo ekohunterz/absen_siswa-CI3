@@ -101,7 +101,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="" method="post" id="edit-tahun">
-            <input type="hidden" name="id" id="id" />
+            <input type="text" name="id" id="id" />
             <div class="modal-body">
               <div class="row">
                 <div class="col mb-3">
